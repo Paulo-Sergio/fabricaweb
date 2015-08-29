@@ -10,7 +10,9 @@ public class TestUsuarioDAO {
 	public static void main(String[] args) {
 //		testExcluir();
 //		testBuscarPorId();
-		testBuscarTodos();
+//		testBuscarTodos();
+		testAutenticar();
+//		testBuscarPorNome();
 	}
 	
 	public static void testCadastrar(){
@@ -76,4 +78,23 @@ public class TestUsuarioDAO {
 			System.out.println(u);
 		}
 	}
+	
+	public static void testAutenticar(){
+		Usuario usu = new Usuario();
+		usu.setLogin("kelly");
+		usu.setSenha("4532687906");
+		
+		UsuarioDAO usuDAO = new UsuarioDAO();
+		Usuario usuAutenticado = usuDAO.autenticar(usu);
+		System.out.println(usuAutenticado);
+	}
+	
+	public static void testBuscarPorNome(){
+		UsuarioDAO usuDAO = new UsuarioDAO();
+		List<Usuario> listaNomes = usuDAO.buscarPorNome("Paulo");
+		for (Usuario u : listaNomes) {
+			System.out.println(u);
+		}
+	}
+	
 }
