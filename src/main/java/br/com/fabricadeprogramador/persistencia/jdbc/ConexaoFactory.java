@@ -11,9 +11,11 @@ public class ConexaoFactory {
 		String userName = "postgres";
 		String userPassword = "123456";
 		try {
+			Class.forName("org.postgresql.Driver");
 			return DriverManager.getConnection(dataBase, userName, userPassword);
 		} catch (SQLException e) {
-			//e.printStackTrace();
+			throw new RuntimeException(e);
+		} catch (ClassNotFoundException e) {
 			throw new RuntimeException(e);
 		}
 	}
