@@ -3,6 +3,7 @@ package br.com.fabricadeprogramador.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,12 +40,39 @@ public class UsuarioController extends HttpServlet{
 			
 			UsuarioDAO usuDAO = new UsuarioDAO();
 			usuDAO.excluir(usu);
-			resp.getWriter().println("<h1>Excluido Sucesso</h1>");
+			//resp.getWriter().println("<h1>Excluido Sucesso</h1>");
+			
+			resp.sendRedirect("usucontroller.do?acao=lis");
 			
 		}else if(acao.equals("lis")){
 			UsuarioDAO usuDAO = new UsuarioDAO();
 			List<Usuario> lista = usuDAO.buscarTodos();
-			resp.getWriter().print(lista);
+			//resp.getWriter().print(lista);
+			
+			req.setAttribute("lista", lista);
+			
+			RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/listausu.jsp");
+			dispatcher.forward(req, resp);
+			
+		}else if(acao.equals("alterar")){
+			String id = req.getParameter("id");
+			
+			UsuarioDAO usuDAO = new UsuarioDAO();
+			Usuario usu = usuDAO.buscarPorId(Integer.parseInt(id));
+			
+			req.setAttribute("usu", usu);
+			RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/formusuario.jsp");
+			dispatcher.forward(req, resp);
+			
+		}else if(acao.equals("cad")){
+			Usuario usu = new Usuario();
+			usu.setId(0);
+			usu.setNome("");
+			usu.setLogin("");
+			usu.setSenha("");
+			req.setAttribute("usu", usu);
+			RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/formusuario.jsp");
+			dispatcher.forward(req, resp);
 		}
 		
 	}
@@ -66,6 +94,7 @@ public class UsuarioController extends HttpServlet{
 		UsuarioDAO usuDAO = new UsuarioDAO();
 		usuDAO.salvar(usu);
 		resp.getWriter().println("<h1>Sucesso</h1>");
+		resp.sendRedirect("usucontroller.do?acao=lis");
 	}
 	
 	@Override
