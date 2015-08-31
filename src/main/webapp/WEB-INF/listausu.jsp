@@ -14,9 +14,13 @@ function confirmaExcluir(id){
 		location.href="usucontroller.do?acao=excluir&id="+id;
 	}
 }
+function novo(){
+	location.href="usucontroller.do?acao=cad";
+}
 </script>
 </head>
 <body>
+<%@include file="menu.jsp"%>
 <% List<Usuario> lista = (List<Usuario>) request.getAttribute("lista");%>
 <table class="table">
 	<tr>
@@ -35,6 +39,7 @@ function confirmaExcluir(id){
 	</tr>
 	<% }%>
 </table>
+<button class="btn" onclick="javascript:novo();">Novo</button>
 
 </body>
 </html>

@@ -6,6 +6,7 @@
 <title>Cadastrar Usuario</title>
 </head>
 <body>
+<%@include file="menu.jsp"%>
 <% Usuario usu = (Usuario) request.getAttribute("usu"); %>
 <form action="usucontroller.do" method="post">
 	ID: <input type="number" name="id" value="<%=usu.getId()%>">
